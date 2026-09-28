@@ -1,7 +1,17 @@
+using JobApplicationTracker.Data;
+using Microsoft.EntityFrameworkCore;
+
+
 var builder = WebApplication.CreateBuilder(args);//luo builder-olion, jonka avulla määritämme sovelluksen asetukset ja tarvitsemat palvelut
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+//AddDbContext<ApplicationDbContext> metodi rekisteröi ApplicationDbContext-luokan sovelluksen palveluihin (ASP.NET Coren Dependency Injection -järjestelmään.), jotta sitä voidaan käyttää riippuvuuksien injektoinnissa.
+//options.UseSqlServer(...)kertoo EF Corelle:Tämän DbContextin tietokantamoottori on SQL Server.
+//builder.Configuration.GetConnectionString("DefaultConnection") hakeek SQL serrverin osoitteen appsetting.json tiedostonsa.
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 var app = builder.Build();
 
