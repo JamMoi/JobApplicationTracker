@@ -101,5 +101,31 @@ namespace JobApplicationTracker.Controllers
 
             return RedirectToAction(nameof(Index));
         }
+        [HttpGet]
+
+        public async Task<IActionResult> Delete (int id)
+        {
+            var application = await context.JobApplications.FindAsync(id);
+            if (application == null)
+            {
+                return NotFound();
+            }
+            return View(application);
+        }
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            var application = await context.JobApplications.FindAsync(id);
+            if (application == null)
+            {
+                return NotFound();
+            }
+
+            context.JobApplications.Remove(application);
+            await context.SaveChangesAsync();
+
+            return RedirectToAction(nameof(Index));
+        }
     }
     }

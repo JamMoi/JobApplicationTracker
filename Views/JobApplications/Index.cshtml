@@ -15,6 +15,7 @@
             <th>Deadline</th>
             <th>Status</th>
             <th>Actions</th>
+
             
         </tr>
     </thead>
@@ -28,7 +29,12 @@
                 <td>@(application.Deadline?.ToString("dd.MM.yyyy") ?? "-")</td>
                 <td>@application.Status</td>
                 <td>
-                    <a asp-action="Edit" asp-route-id="@application.Id" class="btn btn-primary">Edit</a>
+                    <a asp-action="Edit" asp-route-id="@application.Id" 
+                    class="btn btn-primary">Edit</a>
+                </td>
+                <td>
+                    <a asp-action="Delete" asp-route-id="@application.Id"
+                    class = "btn btn-sm btn-outline-danger">Delete</a>
                 </td>
             </tr>
         }
