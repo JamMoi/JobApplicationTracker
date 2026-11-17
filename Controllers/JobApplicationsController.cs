@@ -15,15 +15,22 @@ namespace JobApplicationTracker.Controllers
             this.context = context;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string? search)
         {
-            var applications = await context.JobApplications.ToListAsync();
-            //var applications Luodaan muuttuja hakemusten listalle.
-            //await Odotetaan tietokantakyselyn valmistumista asynkronisesti.
-            //context Käytetään tietokantakontekstia.
-            //JobApplications Viitataan työhakemusten DbSet-kokoelmaan.
-            //ToListAsync()   Haetaan kaikki sen tietueet listaksi.
+            var searchTerm = search?.Trim();
+            var query = context.JobApplications.AsQueryable();
 
+            // Filter in the database
+            if (!string.IsNullOrEmpty(searchTerm))
+            {
+                query = query.Where(application =>
+                application.CompanyName.Contains(searchTerm) ||
+                application.JobTitle.Contains(searchTerm));
+            }
+            // Keep the search term visible
+            ViewData["Search"] = searchTerm;
+
+            var applications = await query.ToListAsync();
             return View(applications);
         }
 
@@ -91,6 +98,10 @@ namespace JobApplicationTracker.Controllers
             existing.Deadline = application.Deadline;
             existing.Status = application.Status;
 
+            //Save the date entered in the Eit form
+            existing.ApplicationDate = application.ApplicationDate;
+
+            //set todays´s date when first marking an application as applied
             if (existing.Status == ApplicationStatus.Applied
                 && existing.ApplicationDate == null)
             {

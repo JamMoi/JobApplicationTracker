@@ -31,13 +31,25 @@
         <div class="mb-3">
             <label asp-for="Status" class="form-label"></label>
             <select asp-for="Status" class="form-control">
-                <option value="">Select Status</option>
+                <option value="Interested">Interested</option>
+                <option value="Preparing">Preparing</option>
                 <option value="Applied">Applied</option>
                 <option value="Interview">Interview</option>
                 <option value="Offer">Offer</option>
                 <option value="Rejected">Rejected</option>
+                <option value="Withdrawn">Withdrawn</option>
             </select>
             <span asp-validation-for="Status" class("text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="ApplicationDate" class="form-label">
+                Date Applied
+            </label>
+            <input asp-for="ApplicationDate"
+            type="date"
+            class="form-control" />
+            <span asp-validation-for="ApplicationDate" class="text-danger"></span>
         </div>
 
         <div class="mt-3">
@@ -47,6 +59,7 @@
             <a asp-action="Index" class="btn btn-secondary">
                 Cancel
             </a>
+            
         </div>
 
     </form>
