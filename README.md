@@ -1,29 +1,47 @@
 # JobTracker
 
-JobTracker is a web app for tracking job applications, deadlines, and application status.
+JobTracker is an ASP.NET Core MVC web application for managing job applications, tracking deadlines, and monitoring application progress.
+
+The project demonstrates practical C# development, database operations with Entity Framework Core, and server-rendered web development using Razor and Bootstrap.
 
 ## Features
 
-- Browse, add, edit, and delete job applications.
-- Review the selected application on a confirmation page before deleting it.
-- Search the application list by company name or job title.
-- Track deadlines and automatically record the application date when an application is saved as Applied without an existing application date.
+- Create, view, edit, and delete job applications.
+- Search applications by company name or job title.
+- Track application statuses, including Interested, Preparing, Applied, Interview, Offer, Rejected, and Withdrawn.
+- Manage application deadlines.
+- Automatically record the application date when an application is marked as Applied without an existing date.
+- Edit or clear application dates when needed.
+- Confirm before deleting an application.
 
-## Tech stack
+## Technologies
 
-C#, ASP.NET Core MVC, Razor, Bootstrap, Entity Framework Core, and SQL Server.
+- C#
+- ASP.NET Core MVC
+- Entity Framework Core
+- SQL Server
+- Razor Views
+- Bootstrap
+- Git and GitHub
 
-## Run locally
+## Run Locally
 
-The steps below use Visual Studio on Windows and SQL Server Express LocalDB. Use a .NET SDK that supports the target framework in the `.csproj` file.
+**Requirements:**
+- Visual Studio with ASP.NET and web development support
+- A compatible .NET SDK (see the project's `.csproj` file)
+- SQL Server Express LocalDB
+
+**Setup:**
 
 1. Clone the repository and open the solution in Visual Studio.
-2. Open a terminal in the folder containing the web project's `.csproj` file. Set up a local database connection using ASP.NET Core User Secrets.
+2. Configure the `DefaultConnection` connection string for your local SQL Server database.
+3. Open **Tools → NuGet Package Manager → Package Manager Console**.
+4. Select the web project as the default project.
+5. Run `Update-Database` to apply the Entity Framework Core migrations.
+6. Press `F5` to start the application.
 
-   ```powershell
-   dotnet user-secrets init
-   dotnet user-secrets set "ConnectionStrings:DefaultConnection" "Server=(localdb)\MSSQLLocalDB;Database=JobTracker;Trusted_Connection=True"
-   ```
+Navigate to `/JobApplications` to view and manage applications.
 
-3. In Visual Studio, open **Tools → NuGet Package Manager → Package Manager Console**. Select the web project as the default project and run `Update-Database` to apply the migrations.
-4. Press `F5` and open `/JobApplications` using the local address shown in the browser. Use `/JobApplications/Create` to add your first application.
+## Project Purpose
+
+This project was developed to practise ASP.NET Core MVC, Entity Framework Core, CRUD operations, form validation, and database-driven application development.
